@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Imtiaz — Cyber-Alchemist Portfolio</title>
+
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+  <style>
+    :root{
+      --bg-900:#071227;
+      --bg-800:#0b2a46;
+      --panel:rgba(255,255,255,0.05);
+      --glass-border:rgba(255,255,255,0.08);
+      --accent-blue:#1E90FF;
+      --accent-icy:#4FD1FF;
+      --muted:#bcd3e6;
+      --max-w:1200px;
+      --shadow:0 12px 40px rgba(2,8,23,0.65);
+    }
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{
+      font-family:"Poppins",sans-serif;
+      background:var(--bg-900);
+      color:var(--muted);
+      overflow-x:hidden;
+    }
+
+    /* Background Canvas */
+    #bgCanvas{
+      position:fixed;
+      inset:0;
+      z-index:-1;
+    }
+
+    /* Navbar */
+    nav{
+      position:sticky;
+      top:0;
+      backdrop-filter:blur(8px);
+      background:rgba(7,18,39,0.6);
+      z-index:100;
+    }
+    .nav-wrap{
+      max-width:var(--max-w);
+      margin:auto;
+      padding:14px 22px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+    }
+    .logo{color:var(--accent-icy);font-weight:700;font-family:Inter,sans-serif;font-size:20px}
+    .nav-links{display:flex;gap:20px}
+    .nav-links a{
+      text-decoration:none;
+      color:var(--muted);
+      font-weight:600;
+      transition:0.2s;
+    }
+    .nav-links a:hover{color:#fff}
+    .cta{
+      padding:8px 16px;
+      border-radius:10px;
+      background:linear-gradient(90deg,var(--accent-blue),var(--accent-icy));
+      color:#031227;
+      font-weight:700;
+      text-decoration:none;
+    }
+
+    /* Hero */
+    header.hero{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:40px 20px;
+    }
+    .hero-box{
+      max-width:1000px;
+      background:var(--panel);
+      border:1px solid var(--glass-border);
+      border-radius:18px;
+      padding:40px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:30px;
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(12px);
+    }
+    .hero-left{flex:1;min-width:250px}
+    .hero-left h1{color:var(--accent-icy);font-size:34px;margin-bottom:10px}
+    .lead{font-size:18px;margin-bottom:18px}
+    .btn-row{display:flex;gap:12px;flex-wrap:wrap}
+    .btn{
+      padding:12px 24px;
+      border-radius:999px;
+      font-weight:700;
+      text-decoration:none;
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+    }
+    .btn-primary{background:linear-gradient(90deg,var(--accent-blue),var(--accent-icy));color:#031227}
+    .btn-outline{border:2px solid var(--accent-icy);color:var(--accent-icy)}
+    .hero-right{width:280px;text-align:center}
+
+    .profile-card{padding:20px;background:rgba(255,255,255,0.04);border:1px solid var(--glass-border);border-radius:12px}
+    .profile-card img{width:100%;border-radius:10px;margin-bottom:10px}
+
+    /* Sections */
+    section{padding:80px 20px}
+    .section-title{text-align:center;margin-bottom:28px}
+    .section-title h2{color:var(--accent-icy);font-size:28px;margin-bottom:10px}
+    .grid{display:grid;gap:20px;max-width:var(--max-w);margin:auto}
+
+    .services-grid{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+    .portfolio-grid,.blog-grid{grid-template-columns:repeat(3,1fr)}
+
+    .card{
+      background:var(--panel);
+      border:1px solid var(--glass-border);
+      border-radius:12px;
+      padding:18px;
+      transition:0.3s;
+    }
+    .card:hover{transform:translateY(-6px)}
+    .card h3{margin:14px 0 6px;color:#fff}
+    .card p{font-size:14px;line-height:1.5}
+
+    .portfolio-thumb,.blog-thumb{
+      border-radius:10px;
+      overflow:hidden;
+      margin-bottom:14px;
+    }
+    .portfolio-thumb img,.blog-thumb img{
+      width:100%;height:180px;object-fit:cover;display:block
+    }
+
+    .show-more-btn{
+      margin:30px auto 0;
+      display:block;
+      padding:10px 22px;
+      border-radius:12px;
+      background:linear-gradient(90deg,var(--accent-blue),var(--accent-icy));
+      border:none;
+      font-weight:700;
+      cursor:pointer;
+      color:#031227;
+    }
+
+    /* Contact */
+    .contact-panel{
+      max-width:600px;
+      margin:auto;
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+    }
+    .contact-panel input,.contact-panel textarea{
+      padding:14px;
+      border-radius:10px;
+      border:1px solid var(--glass-border);
+      background:rgba(255,255,255,0.05);
+      color:#fff;
+      font-size:15px;
+    }
+    .contact-panel button{
+      padding:14px;
+      border:none;
+      border-radius:10px;
+      background:linear-gradient(90deg,var(--accent-blue),var(--accent-icy));
+      font-weight:700;
+      cursor:pointer;
+    }
+
+    footer{text-align:center;padding:20px;color:var(--muted);font-size:14px}
+  </style>
+</head>
+<body>
+  <canvas id="bgCanvas"></canvas>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-wrap">
+      <div class="logo">Cyber-Alchemist</div>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#portfolio">Chronicles</a>
+        <a href="#blog">Datapads</a>
+        <a href="#contact">Beacon</a>
+      </div>
+      <a class="cta" href="#contact">Engage</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-box">
+      <div class="hero-left">
+        <h1>Greetings, I am Imtiaz</h1>
+        <p class="lead">Cipher-Guardian · Digital Fabric Weaver · Sub-Network Penetrator</p>
+        <div class="btn-row">
+          <a href="#contact" class="btn btn-primary"><i class="fa-solid fa-handshake"></i> Initiate Link</a>
+          <a href="#portfolio" class="btn btn-outline"><i class="fa-solid fa-folder-open"></i> View Chronicles</a>
+        </div>
+      </div>
+      <div class="hero-right">
+        <div class="profile-card">
+          <img src="https://image.pollinations.ai/prompt/cybersecurity%20expert%20futuristic%20hacker%20portrait%20blue%20neon%20lights%20digital%20interface?width=250&height=250&seed=1" alt="Profile"> 
+          <div>Cyber-Alchemy • Digital Weaving • Network Infiltration</div>
+          <div style="margin-top:8px">
+            <a href="#" style="color:var(--muted);margin:0 6px"><i class="fab fa-github"></i></a>
+            <a href="#" style="color:var(--muted);margin:0 6px"><i class="fab fa-linkedin"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-title">
+      <h2>About My Nexus</h2>
+      <p>I forge impenetrable digital fortresses, mend fractured code, and orchestrate precision incursions into network vulnerabilities. My prime directive is to minimize existential threats and maximize operational uptime across your digital domains.</p>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="section-title">
+      <h2>My Quantum Services</h2>
+      <p>Deciphered protocols for seamless client integration.</p>
+    </div>
+    <div class="grid services-grid">
+      <div class="card"><h3>Digital Contamination Purge</h3><p>Full spectrum scan & eradication of hostile digital entities.</p></div>
+      <div class="card"><h3>System Anomaly Recalibration</h3><p>Stabilize interwoven code matrices, mend database rifts, resolve core runtime discrepancies.</p></div>
+      <div class="card"><h3>Network Infiltration Protocols</h3><p>Ethical penetration maneuvers with detailed vulnerability schematics.</p></div>
+      <div class="card"><h3>Strategic Consultations</h3><p>Threat assessment, structural hardening blueprints, rapid incident response deployment.</p></div>
+      <div class="card"><h3>Flux Optimization & Archiving</h3><p>Processing speed enhancements + resilient data replication strategies.</p></div>
+      <div class="card"><h3>Perimeter Fortification & Sentinel Watch</h3><p>Deploying advanced WAFs, establishing alert beacons, continuous spectral monitoring.</p></div>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO -->
+  <section id="portfolio">
+    <div class="section-title"><h2>Recent Chronicles</h2></div>
+    <div class="grid portfolio-grid" id="portfolioGrid">
+      <div class="card"><div class="portfolio-thumb"><img src="https://image.pollinations.ai/prompt/futuristic%20e-commerce%20cybersecurity%20audit%20neon%20cityscape%20data%20streams?width=400&height=250&seed=2"></div><h3>Aether-Market Security Nexus</h3><p>Comprehensive audit and eradication of digital parasites for a galactic commerce hub.</p></div>
+      <div class="card"><div class="portfolio-thumb"><img src="https://image.pollinations.ai/prompt/sci-fi%20SaaS%20penetration%20testing%20holographic%20interface%20alien%20technology?width=400&height=250&seed=3"></div><h3>Interstellar SaaS Pen Test</h3><p>Multi-tenant application vulnerability assessment and stabilization across dimensions.</p></div>
+      <div class="card"><div class="portfolio-thumb"><img src="https://image.pollinations.ai/prompt/futuristic%20corporate%20data%20recovery%20matrix%20glitch%20repair%20digital%20restoration?width=400&height=250&seed=4"></div><h3>Corporate Data-Matrix Recovery</h3><p>Debugged critical database anomalies & accelerated data flow for a sector titan.</p></div>
+    </div>
+    <button class="show-more-btn" onclick="showMore('portfolio')">Unveil More Chronicles</button>
+  </section>
+
+  <!-- BLOG -->
+  <section id="blog">
+    <div class="section-title"><h2>Latest Datapads</h2></div>
+    <div class="grid blog-grid" id="blogGrid">
+      <div class="card">
+        <div class="blog-thumb">
+          <img src="https://image.pollinations.ai/prompt/mastering%20wordpress%20security%20futuristic%20holographic%20codex%20glowing%20symbols?width=400&height=250&seed=5">
+        </div>
+        <h3>Mastering AetherPress Security</h3>
+        <p>Advanced protocols for safeguarding your decentralized web presence.</p>
+        <button class="btn btn-outline read-more-btn" onclick="openModal('Mastering AetherPress Security','In this detailed blog, you will learn advanced steps to protect your WordPress website from malware, hacker intrusions, and optimize security protocols effectively. Full walkthrough with real examples and tools included.')">Read More</button>
+      </div>
+      <div class="card">
+        <div class="blog-thumb">
+          <img src="https://image.pollinations.ai/prompt/decoding%20digital%20errors%20glitch%20detection%20futuristic%20diagnostic%20interface?width=400&height=250&seed=6">
+        </div>
+        <h3>Decoding Quantum Anomalies</h3>
+        <p>Rapid diagnosis of common systemic glitches in the digital fabric.</p>
+        <button class="btn btn-outline read-more-btn" onclick="openModal('Decoding Quantum Anomalies','This blog explains how to quickly identify and fix errors in your digital systems, including database, plugin, and network anomalies. Learn troubleshooting strategies with examples.')">Read More</button>
+      </div>
+      <div class="card">
+        <div class="blog-thumb">
+          <img src="https://image.pollinations.ai/prompt/ethical%20hacking%20primer%20sci-fi%20training%20simulation%20hacker%20viewpoint?width=400&height=250&seed=7">
+        </div>
+        <h3>Ethical Infiltration Primer</h3>
+        <p>Tactics, sovereign digital boundaries & data-log reporting.</p>
+        <button class="btn btn-outline read-more-btn" onclick="openModal('Ethical Infiltration Primer','Learn the basics of ethical hacking, understanding boundaries, reporting methods, and how to conduct penetration tests safely and legally.')">Read More</button>
+      </div>
+    </div>
+    <button class="show-more-btn" onclick="showMore('blog')">Access More Datapads</button>
+  </section>
+
+  <!-- Modal -->
+  <div id="blogModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);justify-content:center;align-items:center;z-index:200;">
+    <div style="background:var(--panel);padding:30px;border-radius:12px;max-width:600px;width:90%;position:relative;">
+      <button onclick="closeModal()" style="position:absolute;top:10px;right:10px;background:var(--accent-blue);color:#031227;border:none;padding:6px 12px;border-radius:8px;cursor:pointer;">Close</button>
+      <h3 id="modalTitle" style="margin-bottom:15px;color:#4FD1FF"></h3>
+      <p id="modalContent" style="line-height:1.6"></p>
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-title"><h2>Establish Beacon Contact</h2></div>
+    <form class="contact-panel" id="contactForm">
+      <input type="text" name="name" placeholder="Your Designation" required>
+      <input type="email" name="email" placeholder="Your Chrono-Address" required>
+      <textarea name="message" rows="5" placeholder="Transmission Log" required></textarea>
+      <button type="submit">Send Transmission</button>
+    </form>
+  </section>
+
+  <footer>&copy; 2025 Imtiaz, Cyber-Alchemist. All digital rights reserved across the known cosmos.</footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <script>
+    // Background animation
+    const canvas=document.getElementById("bgCanvas");
+    const ctx=canvas.getContext("2d");
+    canvas.width=window.innerWidth; canvas.height=window.innerHeight;
+    let particles=[];
+    for(let i=0;i<100;i++){
+      particles.push({
+        x:Math.random()*canvas.width,
+        y:Math.random()*canvas.height,
+        vx:(Math.random()-0.5),
+        vy:(Math.random()-0.5),
+        size:Math.random()*2+1
+      });
+    }
+    function draw(){
+      ctx.fillStyle="rgba(7,18,39,0.5)";
+      ctx.fillRect(0,0,canvas.width,canvas.height);
+      ctx.fillStyle="#4FD1FF";
+      particles.forEach(p=>{
+        p.x+=p.vx; p.y+=p.vy;
+        if(p.x<0||p.x>canvas.width) p.vx*=-1;
+        if(p.y<0||p.y>canvas.height) p.vy*=-1;
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
+        ctx.fill();
+      });
+      requestAnimationFrame(draw);
+    }
+    draw();
+    window.addEventListener("resize",()=>{canvas.width=innerWidth;canvas.height=innerHeight;});
+
+    // Show More
+    function showMore(type){
+      if(type==="portfolio"){
+        document.getElementById("portfolioGrid").innerHTML+=
+          `<div class="card"><div class="portfolio-thumb"><img src="https://image.pollinations.ai/prompt/futuristic%20AI%20project%20neon%20interface?width=400&height=250&seed=8"></div><h3>Advanced AI Nexus</h3><p>Deployment of an intelligent autonomous system for cyber defense.</p></div>`;
+      }else if(type==="blog"){
+        document.getElementById("blogGrid").innerHTML+=
+          `<div class="card"><div class="blog-thumb"><img src="https://image.pollinations.ai/prompt/next-gen%20network%20security%20analytics%20interface?width=400&height=250&seed=9"></div><h3>Next-Gen Network Analytics</h3><p>Implementing futuristic monitoring protocols for preemptive threat detection.</p><button class="btn btn-outline read-more-btn" onclick="openModal('Next-Gen Network Analytics','In this datapad, we explore advanced monitoring techniques, automated threat alerts, and futuristic anomaly detection for your networks.')">Read More</button></div>`;
+      }
+    }
+
+    // Modal
+    function openModal(title, content){
+      document.getElementById('modalTitle').innerText=title;
+      document.getElementById('modalContent').innerText=content;
+      document.getElementById('blogModal').style.display='flex';
+    }
+    function closeModal(){document.getElementById('blogModal').style.display='none';}
+
+    // Contact Form
+    emailjs.init("YOUR_USER_ID");
+    document.getElementById('contactForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      emailjs.sendForm('YOUR_SERVICE_ID','YOUR_TEMPLATE_ID',this)
+        .then(()=>alert('Transmission Sent ✅'),()=>alert('Transmission Failed ❌'));
+      this.reset();
+    });
+  </script>
+</body>
+</html>
